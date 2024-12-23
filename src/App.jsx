@@ -5,6 +5,7 @@ import Admin from "./Pages/Admin/Admin";
 import Login from "./Pages/Admin/Login";
 import PrivateRoute from "./Services/PrivateRoute";
 import Home from "./Pages/Home";
+import SplashScreen from "./Components/SplashScreen";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -18,7 +19,8 @@ function App() {
 
 			<div className="app bg-primarybg text-primarytext">
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<SplashScreen />} />
+					<Route path="/home" element={<Home />} />
 
 					{/* Admin Routes */}
 					<Route path="/admin" element={<Login />} />
