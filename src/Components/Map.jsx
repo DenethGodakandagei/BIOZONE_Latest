@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import data from "../Assest/Datafile/classdata.json";
 import { VscArrowRight, VscChromeClose } from "react-icons/vsc";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 import classimage1 from "../Assest/Web_Images/1.jpg";
 import classimage2 from "../Assest/Web_Images/5.jpg";
 import classimage3 from "../Assest/Web_Images/4.jpg";
@@ -10,6 +12,7 @@ const Map = () => {
   // State to control the visibility of the modal and the selected timetable data
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [ref1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
 
   // Function to open the modal with the timetable details
   const openModal = (institute) => {
@@ -44,6 +47,12 @@ const Map = () => {
       <div className="flex justify-center">
         <div className="relative grid lg:grid-cols-2 grid-cols-1 gap-8 justify-center">
           {data.map((institute, index) => (
+        <motion.div
+                          ref={ref1}
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={inView1 ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                          transition={{ duration: 0.5, delay: 0.3*index }}
+                        >
             <div
               key={index}
               className="rounded-[16px] overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer w-[90vw] h-[340px] lg:h-[17vw] lg:w-[28vw]"
@@ -68,6 +77,7 @@ const Map = () => {
                 </a>
               </div>
             </div>
+           </motion.div>
           ))}
         </div>
       </div>
